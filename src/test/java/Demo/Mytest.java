@@ -1,0 +1,73 @@
+package Demo;
+
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import io.appium.java_client.android.AndroidDriver;
+public class Mytest {
+
+	public static void main(String[] args) throws MalformedURLException, InterruptedException{
+		// TODO Auto-generated method stub
+		
+		
+
+			//Gather Desired capabilities
+			//edited
+			DesiredCapabilities capabilities = new DesiredCapabilities();
+			capabilities.setCapability("platformName", "Android");
+            capabilities.setCapability("appium:deviceName", "HUAWEI FLA-LX2");
+            capabilities.setCapability("appium:automationName", "uiautomator2");
+            capabilities.setCapability("appium:platformVersion", "9");
+		        
+            
+            capabilities.setCapability("appium:appPackage", "com.android.calculator2");
+            capabilities.setCapability("appium:appActivity", "com.android.calculator2.Calculator");
+		       
+
+		        URL url = URI.create("http://127.0.0.1:4723/").toURL();
+		        
+		        AndroidDriver driver = new AndroidDriver(url, capabilities);
+		       
+		        Thread.sleep(5000);
+		        System.out.println("Application Started");
+		        
+		        //Click 8
+		        WebElement num8 = driver.findElement(By.id("com.android.calculator2:id/digit_8"));
+		        num8.click();
+		        //Click +
+		        WebElement plus = driver.findElement(By.id("com.android.calculator2:id/op_add"));
+		        plus.click();
+		        //Click 2
+		        WebElement num2 = driver.findElement(By.id("com.android.calculator2:id/digit_2"));
+		        num2.click();
+		        //Click =
+		        WebElement equal = driver.findElement(By.id("com.android.calculator2:id/eq"));
+		        equal.click();
+		        
+		        //result
+		        String results = driver.findElement(By.id("com.android.calculator2:id/formula")).getText();
+		        
+		        
+		        if (results.equals("10"))
+		        {
+		        	
+		        	System.out.println("Pass");
+		        }
+		        else
+                {
+		        	
+		        	System.out.println("Fail");
+		        }
+		        
+		        
+		        driver.quit();//CLOSE SESSION
+		        
+			
+		}
+
+	}
